@@ -1,0 +1,67 @@
+Source: sharing-service-facebook
+Section: user/graphics
+Priority: optional
+Maintainer: Ivaylo Dimitrov <freemangordon@abv.bg>
+Build-Depends: debhelper (>= 5), libglib2.0-dev, libconic0-dev, tablet-browser-interface-dev,
+ libjson-glib-dev, libexempi-dev, libgstreamer0.10-dev, libsharing-plugin-dev,
+ libgconf2-dev, libhildon1-dev, feedservice2-dev, feedservice-plugin-fb-common-dev, maemo-optify
+Standards-Version: 3.7.2
+
+Package: sharing-service-facebook-dbg
+Section: devel
+Architecture: any
+Depends: sharing-service-facebook (= ${Source-Version})
+Description: Debugging symbols for Facebook Sharing Plugin
+
+Package: sharing-service-facebook
+Section: user/graphics
+Priority: optional
+Architecture: any
+Depends: ${misc:Depends}, libatk1.0-0 (>= 1.24.0), libc6 (>= 2.5.0-1),
+ libcairo2, libconic0, libdbus-1-3 (>= 1.1.4), libdbus-glib-1-2 (>= 0.76),
+ libexempi3, libfontconfig1 (>= 2.6.0), libfreetype6 (>= 2.3.9),
+ libgconf2-6 (>= 2.13.5), libglib2.0-0,
+ libgstreamer0.10-0 (>= 0.10.25), libgtk2.0-0 (>= 2:2.12.9-0osso1),
+ libhildon1 (>= 2.2.22), libjson-glib-1.0-0, libosso1 (>= 2.23), libpango1.0-0,
+ libpixman-1-0, libpng12-0 (>= 1.2.13-4), libsharing0, libx11-6,
+ libxml2 (>= 2.6.32), libxrender1, zlib1g (>= 1:1.2.1),
+ feedservice-plugin-fb-common (>= 0.6.0)
+Description: Facebook Sharing Plugin
+Maemo-Icon-26:
+ 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
+ Z2aDDCMAAAAASUVORK5CYII=

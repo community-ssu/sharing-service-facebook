@@ -1,0 +1,11 @@
+sharing-service-facebook (0.6.1) unstable; urgency=low
+
+  * Fix debian dependencies
+
+ -- Ivaylo Dimitrov <freemangordon@abv.bg>  Mon, 6 Apr 2015 08:48:32 +0300
+
+sharing-service-facebook (0.6.0) unstable; urgency=low
+
+  * Initial FOSS replacement release
+
+ -- Ivaylo Dimitrov <freemangordon@abv.bg>  Sun, 5 Apr 2015 10:42:11 +0300

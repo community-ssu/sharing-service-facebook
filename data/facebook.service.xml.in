@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<service plugin="libfacebooksharingservice.so" provider="maemo-community">
+
+  <accounts plugInSetup="1" plugInEdit="1">
+    <password maxlen="32"/>
+  </accounts>
+
+  <ui>
+    <name>Facebook</name>
+    <icon type="post">@servicesdir@/facebook-icon.png</icon>
+    <icon type="setup">@servicesdir@/facebook-icon.png</icon>
+    <options>
+       <option id="album" type="updatable" default="Mobile Uploads">
+              <caption domain="osso-sharing-ui" key="share_ti_select_album"/>
+              <value id="Mobile Uploads" domain="osso-sharing-ui" key="Mobile Uploads"/>
+       </option>
+    </options>
+  </ui>
+
+  <media tags="0">
+      <types>
+         <mime>image/jpeg</mime>
+         <mime>image/png</mime>
+      </types>
+  </media>
+
+</service>
+
