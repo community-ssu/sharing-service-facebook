@@ -916,6 +916,48 @@ fb_sharing_plugin_send_photo(facebook_graph_request *request,
   return rv;
 }
 
+static int fb_sharing_plugin_get_error_code(GArray *response)
+{
+  int rv = -1;
+
+  if (response)
+  {
+      GError *error;
+      JsonParser *parser = json_parser_new();
+
+      if (!json_parser_load_from_data(parser, response->data, response->len,
+                                      &error))
+      {
+          if (error)
+          {
+              g_warning("%s\n", error->message);
+              g_error_free(error);
+          }
+      }
+      else
+      {
+          JsonNode *root = json_parser_get_root(parser);
+          if (root && JSON_NODE_HOLDS_OBJECT(root))
+          {
+              JsonObject *object = json_node_get_object(root);
+
+              if (object && json_object_has_member(object, "error"))
+              {
+                  JsonObject *fb_error =
+                          json_object_get_object_member(object, "error");
+
+                  if (fb_error && json_object_has_member(fb_error, "code"))
+                      rv = json_object_get_int_member(fb_error, "code");
+              }
+          }
+      }
+
+      g_object_unref(parser);
+  }
+
+  return rv;
+}
+
 static SharingPluginInterfaceSendResult
 fb_sharing_plugin_send(SharingTransfer *transfer, ConIcConnection *con,
                        gboolean *dead_mans_switch)
@@ -1006,8 +1048,6 @@ fb_sharing_plugin_send(SharingTransfer *transfer, ConIcConnection *con,
     }
     else
     {
-      g_array_free(response, 1);
-
       if (error)
       {
         g_warning("%s\n", error->message);
@@ -1027,10 +1067,27 @@ fb_sharing_plugin_send(SharingTransfer *transfer, ConIcConnection *con,
         g_error_free(error);
       }
       else
-        rv = SHARING_SEND_ERROR_UNKNOWN;
-
-      break;
+      {
+        int err = fb_sharing_plugin_get_error_code(response);
+        g_warning("%s HTTP result %d - error [%d]\n", __func__,
+                  http_response, err);
+        switch (http_response)
+        {
+          case 401:
+          case 403:
+            rv = SHARING_SEND_ERROR_AUTH;
+            break;
+          default:
+            rv = SHARING_SEND_ERROR_UNKNOWN;
+            break;
+        }
+      }
     }
+
+    g_array_free(response, TRUE);
+
+    if (rv != SHARING_SEND_SUCCESS)
+        break;
   }
 
   sharing_account_unref(account);
