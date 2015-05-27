@@ -828,8 +828,6 @@ fb_sharing_plugin_send_video(facebook_graph_request *request,
   return rv;
 }
 
-
-
 static int
 fb_sharing_plugin_send_photo(facebook_graph_request *request,
                              const gchar *access_token, const gchar *album,
