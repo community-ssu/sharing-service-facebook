@@ -289,7 +289,7 @@ sharing_plugin_interface_account_validate(SharingAccount *account,
     request->email = g_strdup(username);
     request->password = g_strdup(password);
     request->scope =
-        g_strdup("user_photos,friends_photos,publish_actions");
+        g_strdup("user_photos,publish_actions");
 
     credentials = facebook_graph_login(request, con, &progress, &error);
 
